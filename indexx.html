@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FrisUp — Company</title>
+  <link rel="icon" type="png" href="images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, sans-serif;
+      color: #0f1720;
+      line-height: 1.5;
+      background: url('images/background.jpg') center/cover no-repeat;
+      padding-top: 70px;
+      margin: 0;
+    }
+
+    /* Header */
+    header {
+      padding: 10px 20px;
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .logo-img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .logo-text span {
+      font-size: 0.9rem;
+      display: block;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        right: 0;
+        top: 50px;
+        padding: 10px 20px;
+        border-radius: 6px;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 20px;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #2ECC71;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .cta:hover {
+      background: #28b463;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Services Section */
+    .services .card:nth-child(1) {
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+    }
+
+    .services .card:nth-child(2) {
+      background: linear-gradient(135deg, #fddb92, #d1fdff);
+    }
+
+    .services .card:nth-child(3) {
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+    }
+
+    /* Contact section */
+    .contact {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .contact .card {
+      background: linear-gradient(135deg, #5779c1, #d1fdff);
+    }
+
+    .contact form {
+      display: grid;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .contact input,
+    .contact textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .contact button {
+      background: #2ECC71;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .contact button:hover {
+      background: #28b463;
+    }
+
+    footer {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+footer .social {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+footer .social a {
+  font-size: 28px;
+  color: white;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+footer .social a:hover {
+  transform: scale(1.2);
+  color: #2ECC71; /* green hover */
+}
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="images/logo.png" alt="FrisUp Logo" class="logo-img">
+        <div class="logo-text">
+          <h1>FrisUp</h1>
+          <span>IT SOLUTIONS</span>
+        </div>
+      </div>
+      <nav>
+        <button class="menu-toggle">☰</button>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h2>Welcome to FrisUp IT Solutions</h2>
+      <h3>An IT startup fully built by freshers, redefining digital solutions.</h3>
+      <p>We provide reliable, affordable solutions to help small businesses grow — with simple tools, clear pricing, and
+        friendly support.</p>
+      <a href="#contact" class="cta">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="about" class="card-grid">
+    <div class="card">
+      <h3>Who we are</h3>
+      <p>A small team focused on web, mobile, and business tools for local merchants.</p>
+    </div>
+    <div class="card">
+      <h3>What we do</h3>
+      <p>Design, development, and support services tailored to your needs.</p>
+    </div>
+    <div class="card">
+      <h3>Why choose us</h3>
+      <p>Transparent pricing, quick turnaround, and local language support.</p>
+    </div>
+  </section>
+
+  <section id="services" class="services card-grid">
+    <div class="card">
+      <h4>Website Design</h4>
+      <p>Modern responsive websites with easy editing.</p>
+    </div>
+    <div class="card">
+      <h4>Web Apps</h4>
+      <p>Custom tools for inventory, orders, and billing.</p>
+    </div>
+    <div class="card">
+      <h4>Support</h4>
+      <p>Monthly maintenance and helpdesk services.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="card">
+      <h2>Contact</h2>
+      <p><strong>Email:</strong> <a href="mailto:frisup@gmail.com">frisup@gmail.com</a></p>
+      <p><strong>Phone:</strong> +91 98765 43210</p>
+      <p><strong>Address:</strong> No.12, Kamarajar Street, Nagercoil, Tamil Nadu, India</p>
+
+      <form onsubmit="event.preventDefault();alert('Message sent!');">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" rows="4" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+  <p>© 2025 FrisUp — All Rights Reserved</p>
+  <div class="social">
+    <a href="https://www.instagram.com/frisup_it_solutions?igsh=MWVycmt0aHJkZnB2MQ==" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.linkedin.com/company/frisup" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+  </div>
+</footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('nav ul');
+    const navItems = document.querySelectorAll('nav a');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    // Close menu when a link is clicked
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+      });
+    });
+
+    // (Optional) close menu if clicked outside
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

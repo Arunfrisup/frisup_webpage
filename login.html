@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrisUp - Login</title>
+  <link rel="icon" type="png" href="images/logo.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('images/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      color: white;
+      padding: 20px;
+      padding-top: 100px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      width: 320px;
+      max-width: 90%;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== Brand row (logo + text side-by-side) ===== */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* center the whole row */
+      gap: 12px;
+      /* space between logo and text */
+      margin-bottom: 50px;
+      /* gap before input fields */
+    }
+
+    .brand img {
+      height: 50px;
+      /* adjust logo size here */
+      width: auto;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      line-height: 1.1;
+      text-align: left;
+    }
+
+    .brand-name .title {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .brand-name .tagline {
+      margin: 2px 0 0;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #2ECC71;
+      /* green accent */
+    }
+
+    .input-group {
+      position: relative;
+      width: 100%;
+      margin: 8px auto;
+    }
+
+    input {
+      width: 300px;
+      max-width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.85);
+      box-sizing: border-box;
+    }
+
+    .eye-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #555;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff7eb3;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-sizing: border-box;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff4f8b;
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #f0f0f0;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .brand img {
+        height: 44px;
+      }
+
+      .brand-name .title {
+        font-size: 24px;
+      }
+
+      .brand-name .tagline {
+        font-size: 12px;
+      }
+
+      input,
+      button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      color: #fff;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- BRAND ROW -->
+    <div class="brand">
+      <img src="images/logo.png" alt="FrisUp Logo">
+      <div class="brand-name">
+        <h1 class="title">FrisUp</h1>
+        <div class="tagline">IT SOLUTIONS</div>
+      </div>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="input-group">
+        <input type="text" id="login" placeholder="Enter Username or email" autocomplete="username" />
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Enter Password" autocomplete="current-password" />
+        <span id="togglePassword" class="eye-icon">👁</span>
+      </div>
+      <div class="input-group">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+
+    <p style="margin-top: 15px; font-size: 14px; color: white;">
+      Don't have an account?
+      <a href="register.html" style="color: #ff7eb3; text-decoration: none;">Create account</a>
+    </p>
+
+    <p id="message" aria-live="polite"></p>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const messageEl = document.getElementById('message');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const usernameRegex = /^[A-Za-z][A-Za-z.\s]*$/; // letters, spaces, dots
+
+    function showMsg(msg, color) {
+      messageEl.textContent = msg;
+      messageEl.style.color = color || 'white';
+    }
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+      this.textContent = type === 'password' ? '👁' : '🙈';
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const login = document.getElementById('login').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!login) return showMsg('Please enter your username or email.', 'yellow');
+      if (!(emailRegex.test(login) || usernameRegex.test(login)))
+        return showMsg('Enter a valid username or email.', 'orange');
+
+      if (password.length < 8) return showMsg('Password must be at least 8 characters.', 'orange');
+      if (/\s/.test(password)) return showMsg('Password must not contain spaces.', 'orange');
+      if (!/[A-Z]/.test(password)) return showMsg('Password needs at least 1 uppercase letter.', 'orange');
+      if (!/\d/.test(password)) return showMsg('Password needs at least 1 number.', 'orange');
+      if (!/[^A-Za-z0-9]/.test(password)) return showMsg('Password needs at least 1 special character.', 'orange');
+
+      fetch('login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ login, password })
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === 'success') {
+            showMsg('Login successful! Redirecting...', 'lightgreen');
+            setTimeout(() => window.location.href = 'index.html', 1200);
+          } else if (data.status === 'not_found') {
+            showMsg('User not found! Redirecting to registration...', 'orange');
+            setTimeout(() => window.location.href = 'register.html', 1200);
+          } else {
+            showMsg('Wrong password! Please try again.', 'orange');
+          }
+        })
+        .catch(() => alert('Something went wrong. Please try again.'));
+    });
+  </script>
+  <footer>
+    <p>© 2025 FrisUp IT SOLUTIONS </p>
+  </footer>
+</body>
+
+</html>

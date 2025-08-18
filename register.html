@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FrisUp - Register</title>
+    <link rel="icon" type="png" href="images/logo.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+            padding-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 320px;
+            max-width: 90%;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Brand row */
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            /* space before inputs */
+        }
+
+        .brand img {
+            height: 50px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .brand-name {
+            line-height: 1.1;
+            text-align: left;
+        }
+
+        .brand-name .title {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .brand-name .tagline {
+            margin: 2px 0 0;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #2ECC71;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin: 8px auto;
+        }
+
+        input {
+            width: 300px;
+            max-width: 100%;
+            padding: 12px;
+            margin: 8px,0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.85);
+            box-sizing: border-box;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff7eb3;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background .3s;
+        }
+
+        button:hover {
+            background: #ff4f8b;
+        }
+
+        #message {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+/* 
+        .footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #f0f0f0;
+        } */
+
+        @media (max-width:480px) {
+            .container {
+                padding: 20px;
+            }
+
+            .brand img {
+                height: 44px;
+            }
+
+            .brand-name .title {
+                font-size: 24px;
+            }
+
+            .brand-name .tagline {
+                font-size: 12px;
+            }
+
+            input,
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        footer{
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- BRAND ROW -->
+        <div class="brand">
+            <img src="images/logo.png" alt="FrisUp Logo">
+            <div class="brand-name">
+                <h1 class="title">FrisUp</h1>
+                <div class="tagline">IT SOLUTIONS</div>
+            </div>
+        </div>
+
+        <form id="registerForm" novalidate>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter Name" autocomplete="name" />
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Enter Email" autocomplete="email" />
+            </div>
+            <div class="input-group">
+                <input type="tel" id="contact" placeholder="Enter Contact Number" autocomplete="tel" />
+            </div>
+            <div class="input-group">
+                <input type="text" id="address" placeholder="Enter Address" autocomplete="street-address" />
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Enter Password" />
+                <span id="togglePassword" class="eye-icon">👁</span>
+            </div>
+            <div class="input-group">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
+
+        <p style="margin-top: 15px; font-size: 14px; color: white;">
+            You have an account?
+            <a href="login.html" style="color: #ff7eb3; text-decoration: none;">Login</a>
+        </p>
+
+        <p id="message"></p>
+    </div>
+    
+
+    <script>
+        const nameRegex = /^[A-Za-z .]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        const contactRegex = /^\d{10}$/;
+
+        const form = document.getElementById('registerForm');
+        const messageEl = document.getElementById('message');
+
+        function showMsg(msg, color) { messageEl.textContent = msg; messageEl.style.color = color || 'white'; }
+        function clearMsg() { messageEl.textContent = ''; }
+
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const f = document.getElementById('password');
+            const t = f.type === 'password' ? 'text' : 'password';
+            f.type = t; this.textContent = t === 'password' ? '👁' : '🙈';
+        });
+        document.getElementById('username').addEventListener('input', function () { this.value = this.value.replace(/[^A-Za-z .]/g, ''); });
+        document.getElementById('contact').addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 10); });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            clearMsg();
+
+            const name = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!name) return showMsg('Please enter your name.', 'yellow');
+            if (!nameRegex.test(name)) return showMsg('Name must contain only letters, dots, and spaces.', 'orange');
+            if (!email) return showMsg('Please enter your email.', 'yellow');
+            if (!emailRegex.test(email)) return showMsg('Please enter a valid email address.', 'orange');
+            if (!contact) return showMsg('Please enter your contact number.', 'yellow');
+            if (!contactRegex.test(contact)) return showMsg('Contact number must be exactly 10 digits.', 'orange');
+            if (!address || address.length < 5) return showMsg('Please enter your address (min 5 chars).', 'orange');
+            if (!password || password.length < 8) return showMsg('Password must be at least 8 characters.', 'orange');
+
+            fetch('register.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, contact, address, password })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        showMsg('Registration successful! Please login.', 'lightgreen');
+                        setTimeout(() => window.location.href = 'login.html', 1200);
+                    } else {
+                        showMsg(data.message || 'Registration failed.');
+                    }
+                })
+                .catch(() => alert('Something went wrong. Please try again.'));
+        });
+    </script>
+    <footer>
+        <p>© 2025 FrisUp IT SOLUTIONS </p>
+    </footer>
+</body>
+
+</html>
